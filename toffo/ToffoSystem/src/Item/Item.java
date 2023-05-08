@@ -1,7 +1,9 @@
 package Item;
 
+import IDGenerator.IDGenerator;
+
 public class Item{
-    private int itemID;
+    private long itemID;
     private String name;
     private String category;
     private String brand;
@@ -14,6 +16,8 @@ public class Item{
     //private loyalityPoint loyalitypoint;
 
     public Item(){
+        IDGenerator ID = new IDGenerator();
+        this.itemID = ID.generate();
         this.name = "";
         this.category = "";
         this.brand = "";
@@ -28,6 +32,8 @@ public class Item{
 
     public Item(String name, String category, String brand, String unitType,
          String status, String description, double price, double discount,int quantity){
+        IDGenerator ID = new IDGenerator();
+        this.itemID = ID.generate();
         this.name = name;
         this.category = category;
         this.brand = brand;
@@ -39,7 +45,7 @@ public class Item{
         this.quantity = quantity;
     }
 
-    public int getItemID(){
+    public long getItemID(){
         return itemID;
     }
 
@@ -79,10 +85,6 @@ public class Item{
         return quantity;
     }
 
-    public void setItemID(int itemID){
-        this.itemID = itemID;
-    }
-
     public void setName(String name){
         this.name = name;
     }
@@ -117,5 +119,9 @@ public class Item{
 
     public void setQuantity(int quantity){
         this.quantity = quantity;
+    }
+
+    public void setItemID(long itemID){
+        this.itemID = itemID;
     }
 }

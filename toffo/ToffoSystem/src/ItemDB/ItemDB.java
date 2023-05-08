@@ -94,6 +94,7 @@ public class ItemDB {
         preparedStatmentSet(insertSQL,item);
     }
 
+    //bug here review code!!!
     public Item loadItem(Integer itemID){
         String loadSQL = "SELECT * " +
                          "FROM Item " +
@@ -105,7 +106,7 @@ public class ItemDB {
             Statement statement =connection.createStatement();
             ResultSet resultSet = statement.executeQuery(loadSQL);
 
-            item.setItemID(resultSet.getInt("ItemID"));
+            item.setItemID(resultSet.getLong("ItemID"));
             item.setName(resultSet.getString("name"));
             item.setCategory(resultSet.getString("category"));
             item.setBrand(resultSet.getString("brand"));

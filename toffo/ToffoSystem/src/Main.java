@@ -1,16 +1,15 @@
 import Cart.Cart;
+import CartDB.CartDB;
 import Item.Item;
 import Item.AvailabilityManger;
 import ItemDB.ItemDB;
+import Order.Order;
+import Order.OrderDB;
 
 public class Main {
     public static void main(String[] args) {
-        Item item = new Item();
-        ItemDB db = new ItemDB();
-        Cart cart = new Cart();
-
-        item = db.loadItem(5);
-       cart.addItemList(item);
-       System.out.println(cart.getTotalPrice());
+        OrderDB orderDB = new OrderDB();
+        Order order = orderDB.retrieveLastOrder();
+        System.out.println(order.getOrderID());
     }
 }
