@@ -63,19 +63,21 @@ public class OrderDB {
 
     public void saveOrder(Order order){
         createOrderTable();
-        String insertSql = "INSERT INTO `Order`(orderID,orderPrice, orderAddress, checkoutDate, " +
-                "paymentStatus,orderStatus)" +
-                " VALUES(?,?,?,?,?,?)";
+        String insertSql = "INSERT INTO `Order`(orderID,cartID,orderPrice, orderAddress, checkoutDate, " +
+                "paymentStatus,orderStatus,checkoutDate)" +
+                " VALUES(?,?,?,?,?,?,?,?)";
 
         Connection connection = connectOrderDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
             preparedStatement.setLong(1,order.getOrderID());
-            preparedStatement.setDouble(2,order.getOrderPrice());
-            preparedStatement.setString(3,order.getOrderAddress());
-            preparedStatement.setString(4,order.getCheckoutDate());
-            preparedStatement.setString(5,order.getPaymentStatus());
-            preparedStatement.setString(6,order.getOrderStatus());
+            preparedStatement.setLong(2,order.getShoppingCart().getCartID());
+            preparedStatement.setDouble(3,order.getOrderPrice());
+            preparedStatement.setString(4,order.getOrderAddress());
+            preparedStatement.setString(5,order.getCheckoutDate());
+            preparedStatement.setString(6,order.getPaymentStatus());
+            preparedStatement.setString(7,order.getOrderStatus());
+            preparedStatement.setString(8,order.getCheckoutDate());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,7 +86,7 @@ public class OrderDB {
 
 
 
-    //load cart of the order
+    // result of the join, join it with user id
    /* public Cart loadCart(){
 
     }
@@ -108,6 +110,7 @@ public class OrderDB {
         return order;
     }
 
+    // result of the join, join it with user id
      /*public void viewOrderHistory(){
 
      }*/

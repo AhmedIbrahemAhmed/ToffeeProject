@@ -40,15 +40,16 @@ public class ItemDB {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1,item.getName());
-            preparedStatement.setString(2,item.getCategory());
-            preparedStatement.setString(3,item.getBrand());
-            preparedStatement.setString(4,item.getUnitType());
-            preparedStatement.setString(5,item.getDescription());
-            preparedStatement.setString(6,item.getStatus());
-            preparedStatement.setDouble(7,item.getPrice());
-            preparedStatement.setDouble(8,item.getDiscount());
-            preparedStatement.setInt(9,item.getQuantity());
+            preparedStatement.setLong(1,item.getItemID());
+            preparedStatement.setString(2,item.getName());
+            preparedStatement.setString(3,item.getCategory());
+            preparedStatement.setString(4,item.getBrand());
+            preparedStatement.setString(5,item.getUnitType());
+            preparedStatement.setString(6,item.getDescription());
+            preparedStatement.setString(7,item.getStatus());
+            preparedStatement.setDouble(8,item.getPrice());
+            preparedStatement.setDouble(9,item.getDiscount());
+            preparedStatement.setInt(10,item.getQuantity());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
@@ -85,17 +86,24 @@ public class ItemDB {
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void saveItem(Item item){
-        String insertSQL = "INSERT INTO Item(name, category, brand, unitType, " +
+        createItemTable();
+        String insertSQL = "INSERT INTO Item(itemID,name, category, brand, unitType, " +
                 "description, status, price, discount,quantity)" +
-                " VALUES(?,?,?,?,?,?,?,?,?)";
+                " VALUES(?,?,?,?,?,?,?,?,?,?)";
         preparedStatmentSet(insertSQL,item);
     }
 
     //bug here review code!!!
     public Item loadItem(Integer itemID){
+        createItemTable();
         String loadSQL = "SELECT * " +
                          "FROM Item " +
                          "WHERE itemID="+itemID.toString();
@@ -123,6 +131,7 @@ public class ItemDB {
     }
 
     public int retrieveItemID(String name) {
+        createItemTable();
         String retrieveID = "SELECT * FROM Item " +
                 "WHERE name = "+"'"+name+"'";
         int ID = 0;
@@ -140,6 +149,7 @@ public class ItemDB {
     }
 
     public void updateItemDBInfo(Item item){
+        createItemTable();
         Integer itemID = retrieveItemID(item.getName());
         String sqlUpdate = "UPDATE Item\n" +
                 "SET\n" +
@@ -157,12 +167,14 @@ public class ItemDB {
     }
 
     public void removeItemDB(Integer itemID){
+        createItemTable();
         String deleteSql = "DELETE FROM Item " +
                             "WHERE itemID="+itemID.toString();
         excuteSqlStatement(deleteSql);
     }
 
     public void viewItemDB(){
+        createItemTable();
         String selectSql = "SELECT* " +
                             "FROM Item";
         Connection connection = connectItemDB();

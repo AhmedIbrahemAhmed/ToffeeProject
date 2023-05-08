@@ -60,20 +60,21 @@ public class CartDB {
         }
     }
 
-    public void saveCart(Cart cart,long itemID,long orderID){
+    public void saveCart(long cartID,long itemID){
         createCartTable();
-        String insertSql = "INSERT INTO Cart(cartID, itemID, orderID)" +
-                "VALUES(?,?,?)";
+        String insertSql = "INSERT INTO Cart(cartID, itemID)" +
+                "VALUES(?,?)";
 
         Connection connection = connectCartDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
-            preparedStatement.setLong(1,cart.getCartID());
+            preparedStatement.setLong(1,cartID);
             preparedStatement.setLong(2,itemID);
-            preparedStatement.setLong(3,orderID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }

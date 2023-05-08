@@ -17,6 +17,7 @@ public class Order {
     private String orderStatus;
 
     public Order(){
+        this.shoppingCart = new Cart();
         IDGenerator ID = new IDGenerator();
         this.orderID = ID.generate();
         this.orderPrice = 0;
@@ -26,6 +27,8 @@ public class Order {
     }
 
     public Order(Cart shoppingCart,String orderAddress, String paymentStatus,String orderStatus){
+        IDGenerator ID = new IDGenerator();
+        this.orderID = ID.generate();
         this.shoppingCart = shoppingCart;
         this.orderPrice = shoppingCart.getTotalPrice();
         this.orderAddress = orderAddress;
