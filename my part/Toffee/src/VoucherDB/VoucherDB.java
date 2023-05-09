@@ -21,7 +21,7 @@ public class VoucherDB {
             Connection connection = null;
             try {
                 // db parameters
-                String url = "jdbc:sqlite:toffoSystemDB/VoucherDB.VoucherDB/VoucherDB.VoucherDB.db";
+                String url = "jdbc:sqlite:toffoSystemDB/VoucherDB/VoucherDB.db";
                 // create a connection to the database
                 connection = DriverManager.getConnection(url);
 
@@ -59,10 +59,10 @@ public class VoucherDB {
         }
     public  void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:created/VoucherDB.VoucherDB.db";
+        String url = "jdbc:sqlite:toffoSystemDB/VoucherDB/VoucherDB.db";
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS Voucher.Voucher (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS VoucherDB (\n"
                 + " voucherID text PRIMARY KEY,\n"
                 + " voucherCode text NOT NULL,\n"
                 + " discount real\n"
@@ -88,7 +88,7 @@ public class VoucherDB {
 
 
     public Voucher loadVoucher(String voucherCode){
-        String sql = "SELECT * FROM VoucherDB.VoucherDB " + "WHERE voucherCode= "+"'" +voucherCode+"'"+";";
+        String sql = "SELECT * FROM VoucherDB " + "WHERE voucherCode= "+"'" +voucherCode+"'"+";";
         Connection conn = null ;
         try {
             conn = this.connect();
@@ -114,7 +114,7 @@ public class VoucherDB {
     }
 
     public void saveVoucher(Voucher voucher){
-        String sql = "INSERT INTO VoucherDB.VoucherDB(voucherCode,discount ) VALUES(?,?)";
+        String sql = "INSERT INTO VoucherDB(voucherCode,discount ) VALUES(?,?)";
         Connection conn = null ;
         try{
             conn = this.connect();
@@ -136,7 +136,7 @@ public class VoucherDB {
         }
     }
     public void removeVoucher(String voucherCode){
-        String sql = "DELETE FROM VoucherDB.VoucherDB WHERE voucherCode = ?";
+        String sql = "DELETE FROM VoucherDB WHERE voucherCode = ?";
         Connection conn = null ;
         try{
             conn = this.connect();

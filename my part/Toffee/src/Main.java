@@ -1,15 +1,18 @@
 import Order.Order;
 import Order.OrderDB;
-import User.Admin;
-import User.RegisteredUser;
+import User.*;
 
 public class Main {
     public static void main(String[] args) {
-
-        Admin admin = new Admin() ;
-        admin.viewOrders();
-        RegisteredUser user = new RegisteredUser("Ahmed","354312421","20210006");
-        user.viewCatalog();
+        Admin admin = new Admin("7masdada","21313454221","2133123123");
+        Owner owner = new Owner("hmada","hmada123","23221asd");
+//        owner.removeAdmin(admin);
+        OwnerDB owndb = new OwnerDB() ;
+        owndb.saveOwner(owner);
+//        Admin admin = new Admin() ;
+//        admin.viewOrders();
+//        RegisteredUser user = new RegisteredUser("Ahmed","354312421","20210006");
+//        user.viewCatalog();
 //        RegisteredUser user = new RegisteredUser("Ahmed","354312421","20210006");
 //        user.searchItem("3salia");
 //        System.out.println("Hello world!");
