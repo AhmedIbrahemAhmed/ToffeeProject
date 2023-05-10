@@ -1,5 +1,0 @@
-CREATE TABLE  IF NOT EXISTS Cart (
-    cartID INTEGER64,
-    itemID INTEGER NOT NULL,
-    FOREIGN KEY (itemID) REFERENCES Item(itemID)
-);
