@@ -1,25 +1,38 @@
 package LoyaltyPointSchema;
+import ClientDB.ClientDB;
+import Order.Order;
 
 public class LoyaltyPoint {
-    private int pointPrice= 0 ;
-    private int points= 0 ;
+    private int schema;
+    private int points;
+    private int pointPrice;
 
-    public int getLoyaltyPrice() {
+    public LoyaltyPoint(){
+        this.schema = 50;
+        this.points = 0;
+        this.pointPrice = 1;
+    }
+
+    public int getPointPrice(){
         return pointPrice;
     }
-    public int getTotalPrice(){
-        return pointPrice*points ;
+
+    public void setPoints(int points){
+        this.points+=points;
     }
 
-    public void setPointPrice(int pointPrice) {
-        this.pointPrice = pointPrice;
-    }
-
-    public int getPoints() {
+    public int getPoints(){
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void setSchema(int schema){
+        LoyalityPointsDB loyalityPointsDB = new LoyalityPointsDB();
+        loyalityPointsDB.updateSchema(schema);
+    }
+
+    public int getSchema(){
+        LoyalityPointsDB loyalityPointsDB = new LoyalityPointsDB();
+        schema  = loyalityPointsDB.loadSchema(schema);
+        return schema;
     }
 }

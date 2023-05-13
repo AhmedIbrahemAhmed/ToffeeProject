@@ -44,7 +44,7 @@ public class Order {
     }
 
     public void setOrderPrice(double orderPrice) {
-        this.orderPrice = shoppingCart.getTotalPrice();
+        this.orderPrice = orderPrice;
     }
 
     public void setOrderAddress(String orderAddress) {

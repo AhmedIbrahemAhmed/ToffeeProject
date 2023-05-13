@@ -1,5 +1,6 @@
 package VoucherDB;
 
+import IDGenerator.IDGenerator;
 import Voucher.Voucher;
 
 import java.sql.Connection;
@@ -63,7 +64,7 @@ public class VoucherDB {
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS VoucherDB (\n"
-                + " voucherID text PRIMARY KEY,\n"
+                + " voucherID INTEGER64 PRIMARY KEY,\n"
                 + " voucherCode text NOT NULL,\n"
                 + " discount real\n"
                 + ");";
@@ -94,7 +95,7 @@ public class VoucherDB {
             conn = this.connect();
             Statement stmt  = conn.createStatement();
             ResultSet rs    = stmt.executeQuery(sql);
-            voucher.setVoucherDiscount(rs.getDouble("discount"))  ;
+            voucher.setVoucherDiscount(rs.getInt("discount"))  ;
             voucher.setVoucherCode(rs.getString("voucherCode"))   ;
             voucher.setVoucherID(rs.getInt("voucherID"))  ;
 
@@ -114,13 +115,16 @@ public class VoucherDB {
     }
 
     public void saveVoucher(Voucher voucher){
-        String sql = "INSERT INTO VoucherDB(voucherCode,discount ) VALUES(?,?)";
+        createNewTable();
+        String sql = "INSERT INTO VoucherDB(voucherID,voucherCode,discount ) VALUES(?,?,?)";
         Connection conn = null ;
         try{
             conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, voucher.getVoucherCode());
-            pstmt.setDouble(2, voucher.getVoucherDiscount());
+            IDGenerator id = new IDGenerator();
+            pstmt.setLong(1,id.generate());
+            pstmt.setString(2, voucher.getVoucherCode());
+            pstmt.setDouble(3, voucher.getVoucherDiscount());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

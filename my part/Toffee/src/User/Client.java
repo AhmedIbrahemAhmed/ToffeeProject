@@ -7,6 +7,8 @@ import LoyaltyPointSchema.LoyaltyPoint;
 import Item.* ;
 import Order.Order;
 import Order.OrderDB;
+import Payment.*;
+import Voucher.Voucher;
 import java.util.Scanner;
 
 public class Client extends RegisteredUser{
@@ -26,6 +28,10 @@ public class Client extends RegisteredUser{
 
     public Client() {
         super();
+        this.point = new LoyaltyPoint();
+        this.email = email;
+        this.cart = new Cart();
+        this.status = "Active";
     }
 
 
@@ -107,6 +113,11 @@ public class Client extends RegisteredUser{
 
         order = new Order(cart,orderAddress,"cash","shipped",ID);
         order.setCheckoutDate();
+
+        CashPayment payment = new CashPayment();
+        double cash = payment.calcAmount(this);
+        payment.printRecipe(cash);
+        order.setOrderPrice(cash);
 
         OrderDB orderDB = new OrderDB();
         orderDB.saveOrder(order);

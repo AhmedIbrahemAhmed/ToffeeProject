@@ -17,7 +17,6 @@ public class OTP {
      * @return the int
      */
     public int mn(String reciever) {
-
         // Set the email properties
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -25,6 +24,7 @@ public class OTP {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
         // Set the email credentials
         final String username = "ahmedelnile44@gmail.com"; /*PUT UR ACTUAL MAIL*/
@@ -47,7 +47,6 @@ public class OTP {
 
             // Set the email subject
             message.setSubject("OTP");
-
             // Generate a random OTP
             int otp = (int) (Math.random() * 1000000);
 

@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger ;
 import VoucherDB.VoucherDB ;
 public class Voucher {
     protected String voucherCode ;
-    protected double discount= 0 ;
-    protected int voucherID ;
+    protected int discount= 0 ;
+    protected long voucherID ;
     public Voucher(){
         this.discount = 0 ;
         this.voucherCode = "" ;
@@ -26,7 +26,7 @@ public class Voucher {
         return discount;
     }
 
-    public void setVoucherDiscount(double discount) {
+    public void setVoucherDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -41,7 +41,7 @@ public class Voucher {
     public String generateVoucher(){
         Scanner myObj = new Scanner(System.in);
         System.out.println("enter amount of discount");
-        this.discount = myObj.nextDouble();
+        this.discount = myObj.nextInt();
         SecureRandom rand = new SecureRandom();
         String random = Integer.toString(rand.nextInt(100000)) ;
         this.voucherCode = random ;
@@ -50,16 +50,16 @@ public class Voucher {
         return random ;
     }
 
-    public int getVoucherID() {
+    public long getVoucherID() {
         return voucherID;
     }
 
     public String getVoucherCode() {
         return voucherCode;
     }
-    public double redeem(String voucherCode ){
+    public int redeem(String voucherCode ){
         VoucherDB database = new VoucherDB() ;
-        double discount =database.loadVoucher(voucherCode).getVoucherDiscount();
+        int discount = (int) database.loadVoucher(voucherCode).getVoucherDiscount();
         database.removeVoucher(voucherCode);
         return discount ;
     }

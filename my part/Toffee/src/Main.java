@@ -5,6 +5,8 @@ import Order.*;
 import User.*;
 import ClientDB.ClientDB;
 import Regitretion.*;
+import Voucher.Voucher;
+
 import java.util.* ;
 public class Main {
     public static void main(String[] args) {
@@ -342,13 +344,11 @@ public class Main {
                     admin.updateItemInfo(item2);
                     break;
                 case 4:
-                    System.out.println("enter the client to edit his loyalty points: ");
-                    String name2 = scanner2.next();
-                    System.out.println("enter the amount of loyalty points: ");
-                    int points = scanner2.nextInt();
-                    LoyaltyPoint point = new LoyaltyPoint();
-                    point.setPoints(points);
-                    admin.editLoyaltyPointsSchema(name2,point);
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("Enter new Loyality point schema: ");
+                    LoyaltyPoint loyaltyPoint = new LoyaltyPoint();
+                    int schema = s.nextInt();
+                    loyaltyPoint.setSchema(schema);
                     break;
                 case 5:
                     System.out.println("enter the client to view his orders: ");

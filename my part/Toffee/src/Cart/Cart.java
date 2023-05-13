@@ -21,7 +21,7 @@ public class Cart {
 
     public void addItemList(Item item){
         items.add(item);
-        totalPrice+=(item.getPrice()-item.getDiscount());
+        totalPrice+=(item.getQuantity()*item.getPrice());
     }
 
     public void removeItemList(String itemName){
@@ -29,7 +29,7 @@ public class Cart {
             return;
         for (int i=0 ; i<items.size(); i++) {
             if(items.get(i).getName().equals(itemName)) {
-                totalPrice-=(items.get(i).getPrice()-items.get(i).getDiscount());
+                totalPrice-=(items.get(i).getQuantity()*items.get(i).getPrice());
                 items.remove(i);
             }
         }
