@@ -1,0 +1,6 @@
+CREATE TABLE  IF NOT EXISTS Cart (
+    cartID INTEGER64 NOT NULL,
+    itemID INTEGER NOT NULL,
+    itemQuantity INTEGER NOT NULL,
+    FOREIGN KEY (itemID) REFERENCES Item(itemID)
+);
